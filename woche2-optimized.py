@@ -1,12 +1,18 @@
 """
     Excercise 2: Bernoulli
+
+    Optimized versions of included functions
 """
 
 from fractions import Fraction
 
+# Use caches to trade cpu time for memory
+fibonacci_cache = [1, 1]
+bernoulli_cache = [Fraction(1, 1)]
+
 def fibonacci(n):
     """
-    Calculate n-th Fibonacci number
+    Calculate n-th Fibonacci number (cpu time optimized)
 
     Arguments
     ---------
@@ -16,13 +22,14 @@ def fibonacci(n):
     ------
     int, n-th Fibonacci number
     """
-    if n < 2:
-        return 1
-    return fibonacci(n-1) + fibonacci(n-2)
+    if n < len(fibonacci_cache):
+        return fibonacci_cache[n]
+    fibonacci_cache.append(fibonacci(n-1) + fibonacci(n-2))
+    return fibonacci_cache[n]
 
 def factorial(x):
     """
-    Calculate factorial
+    Calculate factorial (tail recursion optimized)
 
     Arguments
     ---------
@@ -32,13 +39,14 @@ def factorial(x):
     ------
     int, calculated factorial of x
     """
-    if x < 1:
-        return 1
-    return factorial(x-1) * x
+    result = 1
+    for i in range(1, x+1):
+        result *= i
+    return result
 
 def bernoulli(n):
     """
-    Calculate n-th Bernoulli number
+    Calculate n-th Bernoulli number (cpu time optimized)
 
     Arguments
     ---------
@@ -48,13 +56,16 @@ def bernoulli(n):
     ------
     Fraction, n-th Bernoulli number
     """
-    if n < 1:
-        return Fraction(1, 1)
+    if n <= len(bernoulli_cache) - 1:
+        return bernoulli_cache[n]
+
     sum = Fraction(0, 1)
     n_factorial = factorial(n)
     for k in range(n):
         sum += Fraction(n_factorial * bernoulli(k), factorial(k) * factorial(n-k+1))
-    return -sum
+
+    bernoulli_cache.append(-sum)
+    return bernoulli_cache[n]
 
 
 if __name__ == '__main__':
