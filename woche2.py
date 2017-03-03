@@ -50,11 +50,11 @@ def bernoulli(n):
     """
     if n < 1:
         return Fraction(1, 1)
-    sum = Fraction(0, 1)
+    b_sum = Fraction(0, 1)
     n_factorial = factorial(n)
     for k in range(n):
-        sum += Fraction(n_factorial * bernoulli(k), factorial(k) * factorial(n-k+1))
-    return -sum
+        b_sum += Fraction(n_factorial * bernoulli(k), factorial(k) * factorial(n-k+1))
+    return -b_sum
 
 
 if __name__ == '__main__':

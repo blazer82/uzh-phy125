@@ -22,8 +22,11 @@ def fibonacci(n):
     ------
     int, n-th Fibonacci number
     """
+    # Use cache if possible
     if n < len(fibonacci_cache):
         return fibonacci_cache[n]
+
+    # Calculate and build cache
     fibonacci_cache.append(fibonacci(n-1) + fibonacci(n-2))
     return fibonacci_cache[n]
 
@@ -56,15 +59,17 @@ def bernoulli(n):
     ------
     Fraction, n-th Bernoulli number
     """
+    # Use cache if possible
     if n <= len(bernoulli_cache) - 1:
         return bernoulli_cache[n]
 
-    sum = Fraction(0, 1)
+    # Calculate and build cache
+    b_sum = Fraction(0, 1)
     n_factorial = factorial(n)
     for k in range(n):
-        sum += Fraction(n_factorial * bernoulli(k), factorial(k) * factorial(n-k+1))
+        b_sum += Fraction(n_factorial * bernoulli(k), factorial(k) * factorial(n-k+1))
 
-    bernoulli_cache.append(-sum)
+    bernoulli_cache.append(-b_sum)
     return bernoulli_cache[n]
 
 
@@ -78,5 +83,5 @@ if __name__ == '__main__':
         print("Factorial of {n}: {result}".format(n=n, result=factorial(n)))
 
     # Calculate bernoulli numbers
-    n = 12
+    n = 20
     print("Bernoulli number of {n}: {result}".format(n=n, result=bernoulli(n)))
