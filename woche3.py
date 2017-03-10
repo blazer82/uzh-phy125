@@ -3,26 +3,35 @@
 """
 
 import numpy as np
-from math import ceil
+from math import ceil, sqrt, log
 
-def eratosthenes(n, sup):
+def eratosthenes(n, sup=None):
     """
     Find n-th prime number using Eratosthenes' algorithm
 
     Arguments
     ---------
     n: int, n=0 -> 2
-    sup: int, upper bound
+    sup: int, upper bound (optional)
 
     Return
     ------
     int, n-th prime number
     """
 
+    # Calculate upper bound if none provided
+    if sup is None:
+        if n > 6:
+            sup = ceil((n+1) * (log(n+1) + log(log(n+1))))
+        else:
+            sup = 20
+        print("Use upper bound: {number}".format(number=sup))
+
+    # Initialize primes array
     primes = np.zeros(sup + 1) == 0 # Set all primes to True
 
     # Set non-primes to False according to Eratosthenes' algorithm
-    for i in range(2, ceil(sup / 2)):
+    for i in range(2, ceil(sqrt(sup))):
         multiplier = 2
         k = multiplier * i
         while k <= sup:
@@ -42,5 +51,5 @@ def eratosthenes(n, sup):
 
 if __name__ == '__main__':
     # Find 115th prime
-    p_115 = eratosthenes(115, 1000)
+    p_115 = eratosthenes(115)
     print("115th prime number is {number}".format(number=p_115))
