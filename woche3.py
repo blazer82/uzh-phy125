@@ -38,7 +38,7 @@ def eratosthenes(n, sup):
                 return i
             position += 1
 
-    raise ValueError("Upper bound to low to find {n}-th prime!".format(n=n))
+    raise ValueError("Upper bound too low to find {n}-th prime!".format(n=n))
 
 if __name__ == '__main__':
     # Find 115th prime
