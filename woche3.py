@@ -18,19 +18,19 @@ def find_upper_bound_to_prime(n):
     int
     """
     if n > 6:
-        sup = ceil((n+1) * (log(n+1) + log(log(n+1))))
+        upper_bound = ceil((n+1) * (log(n+1) + log(log(n+1))))
     else:
-        sup = 20
-    return sup
+        upper_bound = 20
+    return upper_bound
 
-def eratosthenes(n, sup=None):
+def eratosthenes(n, upper_bound=None):
     """
     Find n-th prime number using Eratosthenes' algorithm
 
     Arguments
     ---------
     n: int, n=0 -> 2
-    sup: int, upper bound (optional)
+    upper_bound: int, upper bound (optional)
 
     Return
     ------
@@ -38,18 +38,18 @@ def eratosthenes(n, sup=None):
     """
 
     # Calculate upper bound if none provided
-    if sup is None:
-        sup = find_upper_bound_to_prime(n)
-        print("Use upper bound: {number}".format(number=sup))
+    if upper_bound is None:
+        upper_bound = find_upper_bound_to_prime(n)
+        print("Use upper bound: {number}".format(number=upper_bound))
 
     # Initialize primes array
-    primes = np.zeros(sup + 1) == 0 # Set all entries to True
+    primes = np.zeros(upper_bound + 1) == 0 # Set all entries to True
 
     # Set non-primes to False according to Eratosthenes' algorithm
-    for i in range(2, ceil(sqrt(sup))):
+    for i in range(2, ceil(sqrt(upper_bound))):
         multiplier = 2
         k = multiplier * i
-        while k <= sup:
+        while k <= upper_bound:
             primes[k] = False
             multiplier += 1
             k = multiplier * i
@@ -88,9 +88,9 @@ def loop_invariant(n):
             result.append(number)
         return result
 
-    sup = find_upper_bound_to_prime(n)
+    upper_bound = find_upper_bound_to_prime(n)
     known_primes = [2]
-    for i in range(3, sup):
+    for i in range(3, upper_bound):
         multiples = get_multiples(known_primes, i)
         # Our loop invariant would now be known_primes < i <= multiples
         if not i in multiples:
