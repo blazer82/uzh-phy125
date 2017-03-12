@@ -13,10 +13,10 @@ if __name__ == '__main__':
     number_of_primes = 10000
 
     print("\nCalculate primes using Eratosthenes...")
-    primes = np.array(eratosthenes(number_of_primes, return_list=True))
+    primes = np.array(eratosthenes(number_of_primes))
 
     # print("\nCalculate primes using loop invariants...")
-    # primes = np.array(loop_invariant(number_of_primes, return_list=True))
+    # primes = np.array(loop_invariant(number_of_primes))
 
     print("Highest prime found: {prime}".format(prime=primes[-1]))
 
