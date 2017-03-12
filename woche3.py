@@ -43,7 +43,7 @@ def eratosthenes(n, sup=None):
         print("Use upper bound: {number}".format(number=sup))
 
     # Initialize primes array
-    primes = np.zeros(sup + 1) == 0 # Set all primes to True
+    primes = np.zeros(sup + 1) == 0 # Set all entries to True
 
     # Set non-primes to False according to Eratosthenes' algorithm
     for i in range(2, ceil(sqrt(sup))):
@@ -92,6 +92,7 @@ def loop_invariant(n):
     known_primes = [2]
     for i in range(3, sup):
         multiples = get_multiples(known_primes, i)
+        # Our loop invariant would now be known_primes < i <= multiples
         if not i in multiples:
             known_primes.append(i)
             if len(known_primes) == n + 1:
