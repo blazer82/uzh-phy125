@@ -5,9 +5,9 @@
 import numpy as np
 from math import ceil, sqrt, log
 
-def find_supremum_to_prime(n):
+def find_upper_bound_to_prime(n):
     """
-    Find supremum to n-th prime number
+    Find upper bound to n-th prime number
 
     Arguments
     ---------
@@ -39,7 +39,7 @@ def eratosthenes(n, sup=None):
 
     # Calculate upper bound if none provided
     if sup is None:
-        sup = find_supremum_to_prime(n)
+        sup = find_upper_bound_to_prime(n)
         print("Use upper bound: {number}".format(number=sup))
 
     # Initialize primes array
@@ -88,7 +88,7 @@ def loop_invariant(n):
             result.append(number)
         return result
 
-    sup = find_supremum_to_prime(n)
+    sup = find_upper_bound_to_prime(n)
     known_primes = [2]
     for i in range(3, sup):
         multiples = get_multiples(known_primes, i)
