@@ -23,7 +23,7 @@ def find_upper_bound_to_prime(n):
         upper_bound = 20
     return upper_bound
 
-def eratosthenes(n, upper_bound=None):
+def eratosthenes(n, upper_bound=None, return_list=False):
     """
     Find n-th prime number using Eratosthenes' algorithm
 
@@ -31,10 +31,11 @@ def eratosthenes(n, upper_bound=None):
     ---------
     n: int, n=0 -> 2
     upper_bound: int, upper bound (optional)
+    return_list: bool, return whole list instead of one number (optional)
 
     Return
     ------
-    int, n-th prime number
+    int|list, n-th prime number or n prime numbers
     """
 
     # Calculate upper bound if none provided
@@ -56,25 +57,31 @@ def eratosthenes(n, upper_bound=None):
 
     # Find n-th prime
     position = 0
+    known_primes = []
     for i in range(2, len(primes)):
         if primes[i]:
+            known_primes.append(i)
             if position == n:
-                return i
+                if return_list:
+                    return known_primes
+                else:
+                    return i
             position += 1
 
     raise ValueError("Upper bound too low to find {n}-th prime!".format(n=n))
 
-def loop_invariant(n):
+def loop_invariant(n, return_list=False):
     """
     Find n-th prime number
 
     Arguments
     ---------
     n: int, n=0 -> 2
+    return_list: bool, return whole list instead of one number (optional)
 
     Return
     ------
-    int, n-th prime number
+    int|list, n-th prime number or n prime numbers
     """
 
     def get_multiples(numbers, infimum):
@@ -96,7 +103,10 @@ def loop_invariant(n):
         if not i in multiples:
             known_primes.append(i)
             if len(known_primes) == n + 1:
-                return known_primes[-1]
+                if return_list:
+                    return known_primes
+                else:
+                    return known_primes[-1]
 
     raise ValueError("Upper bound too low to find {n}-th prime!".format(n=n))
 
