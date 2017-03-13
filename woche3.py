@@ -52,16 +52,14 @@ def eratosthenes(n):
             k = multiplier * i
 
     # Find n primes
-    position = 0
     known_primes = []
-    for i in range(2, len(primes)):
+    i = 2 # Start with the first prime p_0=2
+    while len(known_primes) < (n+1):
         if primes[i]:
             known_primes.append(i)
-            if position == n:
-                return known_primes
-            position += 1
+        i += 1
 
-    raise ValueError("Upper bound too low to find {n} primes!".format(n=n))
+    return known_primes
 
 def loop_invariant(n):
     """
@@ -89,15 +87,15 @@ def loop_invariant(n):
 
     upper_bound = find_upper_bound_to_prime(n)
     known_primes = [2]
-    for i in range(3, upper_bound):
+    i = 3 # Start with p_0+1=2+1=3
+    while len(known_primes) < (n+1):
         multiples = get_multiples(known_primes, i)
         # Our loop invariant would now be known_primes < i <= multiples
         if not i in multiples:
             known_primes.append(i)
-            if len(known_primes) == n + 1:
-                return known_primes
+        i += 1
 
-    raise ValueError("Upper bound too low to find {n} primes!".format(n=n))
+    return known_primes
 
 
 if __name__ == '__main__':
