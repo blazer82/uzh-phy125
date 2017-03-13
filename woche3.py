@@ -74,22 +74,11 @@ def loop_invariant(n):
     list, list of n prime numbers
     """
 
-    def get_multiples(numbers, infimum):
-        result = []
-        for entry in numbers:
-            multiplier = 1
-            number = entry * multiplier
-            while number < infimum:
-                multiplier += 1
-                number = entry * multiplier
-            result.append(number)
-        return result
-
     upper_bound = find_upper_bound_to_prime(n)
     known_primes = [2]
     i = 3 # Start with p_0+1=2+1=3
     while len(known_primes) < (n+1):
-        multiples = get_multiples(known_primes, i)
+        multiples = [p*ceil(i/p) for p in known_primes]
         # Our loop invariant would now be known_primes < i <= multiples
         if not i in multiples:
             known_primes.append(i)
