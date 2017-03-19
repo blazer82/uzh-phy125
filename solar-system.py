@@ -51,11 +51,12 @@ if __name__ == '__main__':
 
 
         if "style" in planet:
-            plt.plot(x, y, planet["style"])
+            plt.plot(x, y, planet["style"], label=planet["name"])
         else:
-            plt.plot(x, y, '-')
+            plt.plot(x, y, '-', label=planet["name"])
 
-    plt.plot([0], [0], '.') # Plot the sun (0,0) (approximately) for reference
-    plt.axis('equal')
+    plt.plot([0], [0], '.', label="Sun") # Plot the sun (0,0) (approximately) for reference
+    plt.axis("equal")
+    plt.legend(loc="best")
     # plt.savefig('solar_system.pdf')
     plt.show()
