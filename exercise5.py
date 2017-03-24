@@ -56,7 +56,7 @@ if __name__ == '__main__':
     x = np.array(range(layers + 1))
 
     # Simulate Galton board
-    balls = 1000
+    balls = 10000
     galton_result = galton(balls, layers)
     galton_y = np.array([np.sum(galton_result == i) for i in x]) / balls
 
@@ -69,16 +69,18 @@ if __name__ == '__main__':
     pascal_y = pascal_result / (2**layers)
 
     # Plot results
-    plt.title("Galton, Pascal, Gauss")
-
     plt.subplot(2, 1, 1)
-    # plt.xlabel("Position")
-    # plt.ylabel("Probability")
+    plt.title("Galton, Pascal, Gauss")
+    plt.ylabel("P(x)")
     plt.bar(x-0.2, galton_y, width=0.4, label="Galton")
     plt.bar(x+0.2, pascal_y, width=0.4, label="Pascal")
     plt.legend(loc="best")
 
     plt.subplot(2, 1, 2)
-    plt.plot(gauss_x, gauss_y)
+    plt.xlabel("Bin")
+    plt.ylabel("P(x)")
+    plt.plot(gauss_x, gauss_y, label="Gauss")
+    plt.legend(loc="best")
 
+    plt.savefig('galton_pascal_gauss.pdf')
     plt.show()
