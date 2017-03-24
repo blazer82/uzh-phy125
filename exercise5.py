@@ -45,6 +45,9 @@ def pascal(layers=5):
         prev_layer = layer
     return layer
 
+def gauss(x, N, mean, std_dev):
+    return np.exp(-(x-N*mean)**2/(2*N*std_dev**2)) / (np.sqrt(N)*std_dev) / np.sqrt(2*np.pi)
+
 
 if __name__ == '__main__':
 
@@ -57,15 +60,25 @@ if __name__ == '__main__':
     galton_result = galton(balls, layers)
     galton_y = np.array([np.sum(galton_result == i) for i in x]) / balls
 
+    # Calculate Gauss distribution
+    gauss_x = np.linspace(0, layers, 1000)
+    gauss_y = [gauss(x, layers, 0.5, 0.5) for x in gauss_x]
+
     # Build Pascal triangle
     pascal_result = pascal(layers)
     pascal_y = pascal_result / (2**layers)
 
     # Plot results
-    plt.title("Galton, Pascal")
-    plt.xlabel("Position")
-    plt.ylabel("Probability")
+    plt.title("Galton, Pascal, Gauss")
+
+    plt.subplot(2, 1, 1)
+    # plt.xlabel("Position")
+    # plt.ylabel("Probability")
     plt.bar(x-0.2, galton_y, width=0.4, label="Galton")
     plt.bar(x+0.2, pascal_y, width=0.4, label="Pascal")
     plt.legend(loc="best")
+
+    plt.subplot(2, 1, 2)
+    plt.plot(gauss_x, gauss_y)
+
     plt.show()
