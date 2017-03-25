@@ -36,7 +36,6 @@ def pascal(layers=5):
     ------
     numpy array, Array containing the final layer
     """
-
     prev_layer = np.array([1])
     for l in range(1, layers + 1):
         layer = np.zeros(l+1)
@@ -46,6 +45,20 @@ def pascal(layers=5):
     return layer
 
 def gauss(x, N, mean, std_dev):
+    """
+    Implementation of central limit theorem using a Gaussian function
+
+    Arguments
+    ---------
+    x: float
+    N: int
+    mean: float, Mean
+    std_dev: float, Standard deviation
+
+    Return
+    ------
+    float
+    """
     return np.exp(-(x-N*mean)**2/(2*N*std_dev**2)) / (np.sqrt(N)*std_dev) / np.sqrt(2*np.pi)
 
 
