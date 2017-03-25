@@ -5,7 +5,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def galton(balls, layers=5):
+def galton(balls, layers):
     """
     Implementation of Galton board
 
@@ -24,7 +24,7 @@ def galton(balls, layers=5):
         positions.append(np.sum(path))
     return np.array(positions)
 
-def pascal(layers=5):
+def pascal(layers):
     """
     Implementation of Pascal triangle
 
