@@ -41,7 +41,7 @@ def read_worldbank(filename, year, mean=5):
             end = min(start+5, len(row))
             col_range = (start, end)
         if i > 4 and not row[1] in non_countries:
-            values = [0 if row[i] == '' else float(row[i]) for i in range(col_range[0], col_range[1])]
+            values = [0 if row[j] == '' else float(row[j]) for j in range(col_range[0], col_range[1])]
             data[row[1]] = np.mean(values)
         i += 1
     return data
