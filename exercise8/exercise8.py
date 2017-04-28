@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.image import imread
 from time import gmtime, time, strftime
+from dateutil import parser
 
 
 def R_x(phi):
@@ -32,11 +33,11 @@ def R_z(phi):
 def get_sunlight_coverage_at_time(time, width=10, height=10):
     hour = time.tm_hour + time.tm_min / 60
     yday = time.tm_yday
-    inclination = 23.4
+    inclination = 23.5
 
     phi_day = (hour / 12 * np.pi) - np.pi
-    phi_year = yday / 365 * 2 * np.pi
-    phi_inc = inclination / 180 * np.pi
+    phi_year = (yday / 365 * 2 * np.pi) - (np.pi / 365 * 172)
+    phi_inc = np.radians(inclination)
 
     e_sun = [1,0,0] * R_z(phi_year)
 
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 
     image = imread("worldmap.png")
 
-    t = time()
+    t = parser.parse("2017-04-28 12:00:00 +0000").timestamp()
     while True:
         N = 30
         x = np.linspace(0, 800, N)
@@ -70,12 +71,12 @@ if __name__ == '__main__':
         z = get_sunlight_coverage_at_time(current_time, width=N, height=N)
 
         axes.clear()
-        axes.title.set_text(strftime("%d.%m.%Y %H:%M", current_time))
+        axes.title.set_text(strftime("%d.%m.%Y %H:%M GMT", current_time))
         axes.imshow(image)
         axes.contourf(x, y, z, np.linspace(-1, 1, 10), cmap="hot", alpha=0.5)
 
         axes.xaxis.set_visible(False)
         axes.yaxis.set_visible(False)
 
-        plt.pause(1/30)
-        t += 60*60*24
+        plt.pause(1/20)
+        t += 60*30
