@@ -33,7 +33,7 @@ def rectangle_method(a, b, func, N=10):
         result += h*y
     return result
 
-def simpson(a, b, func):
+def simpson(a, b, func, N=10):
     """
     Implementation of the Simpson method to integrate
 
@@ -42,13 +42,26 @@ def simpson(a, b, func):
     a: float, Lower boundary
     b: floar, Upper boundary
     func: function, Function to integrate
+    N: int, amount of slices to use
 
     Return
     ------
     float, Integration result
     """
 
-    return ((b - a) * func(a) / 6) + (2 * (b - a) * func((a + b) / 2) / 3) + ((b - a) * func(b) / 6)
+    def single_simpson(a, b, func):
+        """
+        Single simpson interpolation
+        """
+        return ((b - a) * func(a) / 6) + (2 * (b - a) * func((a + b) / 2) / 3) + ((b - a) * func(b) / 6)
+
+    # Discrete x values
+    x = np.linspace(a, b, N+1)
+
+    result = 0
+    for i in range(N):
+        result += single_simpson(x[i], x[i+1], func)
+    return result
 
 
 if __name__ == '__main__':
@@ -68,8 +81,8 @@ if __name__ == '__main__':
     print("\nRectangle method ({slices} slices): {result} (error {error})".format(result=rect_result, error=rect_error, slices=slices))
 
     # Simpson method
-    simpson_result = simpson(a, b, f)
+    simpson_result = simpson(a, b, f, slices)
     simpson_error = simpson_result - result
-    print("\nSimpson method: {result} (error {error})".format(result=simpson_result, error=simpson_error))
+    print("\nSimpson method ({slices} slices): {result} (error {error})".format(result=simpson_result, error=simpson_error, slices=slices))
 
     print("\n")
