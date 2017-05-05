@@ -33,6 +33,23 @@ def rectangle_method(a, b, func, N=10):
         result += h*y
     return result
 
+def simpson(a, b, func):
+    """
+    Implementation of the Simpson method to integrate
+
+    Arguments
+    ---------
+    a: float, Lower boundary
+    b: floar, Upper boundary
+    func: function, Function to integrate
+
+    Return
+    ------
+    float, Integration result
+    """
+
+    return ((b - a) * func(a) / 6) + (2 * (b - a) * func((a + b) / 2) / 3) + ((b - a) * func(b) / 6)
+
 
 if __name__ == '__main__':
 
@@ -49,5 +66,10 @@ if __name__ == '__main__':
     rect_result = rectangle_method(a, b, f, slices)
     rect_error = rect_result - result
     print("\nRectangle method ({slices} slices): {result} (error {error})".format(result=rect_result, error=rect_error, slices=slices))
+
+    # Simpson method
+    simpson_result = simpson(a, b, f)
+    simpson_error = simpson_result - result
+    print("\nSimpson method: {result} (error {error})".format(result=simpson_result, error=simpson_error))
 
     print("\n")
