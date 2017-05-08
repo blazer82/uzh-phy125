@@ -75,12 +75,12 @@ if __name__ == '__main__':
     # Amount of slices to use
     slices = 10
 
-    # Rectangle method
+    # Rectangle method (exercise 1)
     rect_result = rectangle_method(a, b, f, slices)
     rect_error = rect_result - result
     print("\nRectangle method ({slices} slices): {result} (error {error})".format(result=rect_result, error=rect_error, slices=slices))
 
-    # Simpson method
+    # Simpson method (exercise 2)
     simpson_result = simpson(a, b, f, slices)
     simpson_error = simpson_result - result
     print("\nSimpson method ({slices} slices): {result} (error {error})".format(result=simpson_result, error=simpson_error, slices=slices))
