@@ -33,9 +33,14 @@ if __name__ == "__main__":
     # Calculate outer leg
     (X_o, Y_o) = outer_leg(q, X_i, Y_i)
 
-    # Plot
-    plt.plot(X_i, Y_i)
-    plt.plot(X_o, Y_o)
-    plt.axes().set_aspect('equal')
-    plt.axis(np.array([-1, 1, -1, 1]) * (b + l) * 1.5)
-    plt.show()
+    # Plot and animate
+    fig = plt.figure()
+    axes = fig.add_subplot(1, 1, 1)
+    for t_i in range(len(t)):
+        axes.clear()
+        plt.plot([0, X_i[t_i]], [0, Y_i[t_i]])
+        plt.plot([X_i[t_i], X_o[t_i]], [Y_i[t_i], Y_o[t_i]])
+        plt.axes().set_aspect('equal')
+        axes.axis(np.array([-1, 1, -1, 1]) * (b + l) * 1.5)
+
+        plt.pause(1/30)
